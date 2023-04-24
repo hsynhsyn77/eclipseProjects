@@ -18,15 +18,50 @@ public class Main {
 		Session session=factory.getCurrentSession();
 		
 		try {
+			//Unit of work
 			session.beginTransaction();
 			
-			List<City> cities = session.createQuery("from City").getResultList();
+			//HQL Hibernate Query LAnguage
+			//select * from city
+			//from City c where c.countryCode='TUR' AND c.district='Ankara' 
+			// ASC Ascending  A-Z ye
+			//DESC Descending Z-A ya
 			
-			for(City city:cities) {
-				System.out.println(city.getName());
-			}
+			//List<City> cities = session.createQuery("from City c ORDER BY c.name DESC").getResultList();
+			
+			/*
+			 * List<String> countryCodes = session.
+			 * createQuery("select c.countryCode from City c GROUP BY c.countryCode ").
+			 * getResultList();
+			 * 
+			 * for(String countryCode:countryCodes) { System.out.println(countryCode); }
+			 */
+			
+			//INSERT
+//			City city=new City();
+//			city.setName("Düzce 10");
+//			city.setCountryCode("TUR");
+//			city.setDistrict("Karadeniz");
+//			city.setPopulation(100000);
+			
+//			session.save(city);
+			
+			//UPDATE
+//			City city=session.get(City.class,4087);
+//			city.setPopulation(110000);
+//			
+//			session.save(city);
+//			
+			//CRUD Create Read Update Delete
+			
+			//DELETE
+			City city=session.get(City.class, 4087);
+			session.delete(city);
+			
 			
 			session.getTransaction().commit();
+			System.out.println("Şehir güncellendi");
+			
 		} finally {
 			factory.close();
 			
